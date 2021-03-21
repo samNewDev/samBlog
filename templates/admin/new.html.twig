@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Article{% endblock %}
+
+{% block body %}
+    <div class="back-btn-position">
+        <a href="{{ path('article_index') }}" class="back-btn btn btn-pill btn-danger">Back to articles</a>
+    </div>
+    <h1>Create new Article</h1>
+    <div class="col-10">
+        {{ include('article/_form.html.twig') }}
+    </div>
+{% endblock %}

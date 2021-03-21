@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Comment{% endblock %}
+
+{% block body %}
+    <div class="back-btn-position">
+        <a href="{{ path('article_show', {'id': comment.article.id}) }}" class="back-btn btn btn-pill btn-danger">Back to articles</a>
+    </div>
+
+    {{ include('comment/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% endblock %}

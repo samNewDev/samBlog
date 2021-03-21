@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+
+    {# Comments number : {{ article.user.comments|length }}
+    <br>
+    {% for comment in article.user.comments %}
+        {{ comment.text }}
+        <br>
+    {% endfor %} #}
+    <div class="back-btn-position">
+        <a href="{{ path('article_index') }}" class="back-btn btn btn-pill btn-danger">Back to articles</a>
+    </div>
+    <div class="col-10">
+            <div class="card">
+            {% if article.image != null %}
+                <img class="card-img-top" src="{{ asset('img/photos/' ~ article.image) }}" alt="Unsplash">
+            {% else %}
+            {% endif %}
+                <div class="card-header">
+                    <div class="card-title mb-0 title-color">{{ article.title }}</div><span class="title-info"></span>
+                </div>
+                <div class="card-body h-100">
+                    <p class="card-text">{{ article.content }}</p>
+                {% if app.user %}
+                    {{ form_start(form) }}
+                        <div class="d-flex align-items-start">
+                            <img src="{{ asset('img/avatars/' ~ app.user.avatar) }}" width="36" height="36" class="rounded-circle mr-2">
+                            <div class="flex-grow-1">
+                                <strong>{{ app.user.username }}</strong><br><br>    
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        {{ form_row(form.text, {
+                                            'attr': {'class': 'form-control form-control-custom', 'rows': '5', 'id': 'inputBio', 'placeholder': 'Type your comment'} 
+                                        }) }}
+                                    </div>
+                                </div>
+                                {{ form_widget(form.submit, {
+                                    'attr': {'class': 'btn btn-sm btn-danger mt-1'}
+                                }) }}
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                {% else %}
+                {% endif %}
+
+                    <hr>
+                    <div class="">
+                        <i class="fas fa-comment icon-color"></i><span class="align-middle comment-font"> This article has {{ article.comments|length }} Comments</span>
+                    </div>
+                    <br>
+                    {% if comments != 0 %}
+                        {% for comment in comments %}
+                            <div class="d-flex align-items-start">
+                                <img src="{{ asset('img/avatars/' ~ comment.user.avatar) }}" width="36" height="36" class="rounded-circle mr-2">
+                                <div class="flex-grow-1">
+                                    {% if app.user and (is_granted('ROLE_ADMIN') or app.user == comment.user) %}
+                                        <div class="float-right">
+                                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
+                                                
+                                            </a>
+                                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="{{ path('comment_edit', {'id': comment.id}) }}">Edit</a>
+                                                <form method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                                    <button class="btn dropdown-item">Delete</button>
+                                                </form>
+                                            </div>
+                                            
+                                        </div>
+                                    {% endif %}
+                                    <strong>{{ comment.user.username }}</strong><br>
+                                    <small class="text-muted">{{ comment.createdAt|date }}</small>
+                                    <div class="border text-sm text-muted p-2 mt-1">
+                                        {{ comment.text }}
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        {% endfor %}
+                    {% else %}    
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+

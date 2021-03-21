@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+    <div class="d-flex align-items-start">
+        <img src="{{ asset('img/avatars/' ~ comment.user.avatar) }}" width="36" height="36" class="rounded-circle mr-2">
+        <div class="flex-grow-1">
+            <strong>{{ comment.user.username }}</strong><br><br>    
+            <div class="col-md-12">
+                <div class="mb-3">
+                    {{ form_row(form.text, {
+                        'attr': {'class': 'form-control form-control-custom', 'rows': '5', 'id': 'inputBio', 'placeholder': 'Type your comment'} 
+                    }) }}
+                </div>
+            </div>
+            {{ form_widget(form.submit, {
+                'attr': {'class': 'btn btn-square btn-square-bg-color btn-primary'}
+            }) }}
+        </div>
+    </div>
+    {# <button class="btn">{{ button_label|default('Save') }}</button> #}
+{{ form_end(form) }}

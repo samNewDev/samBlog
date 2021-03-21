@@ -1,0 +1,30 @@
+<div class="col-10">
+<div class="card">
+    <div class="card-body">
+
+    {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    {{ form_label(form.username, 'Username', {
+                        'label_attr': {'class': 'form-label'}
+                    }) }}
+                    {{ form_row(form.username, {
+                        'attr': {'class': 'form-control', 'id': 'inputUsername', 'placeholder': 'Enter your username'} 
+                    }) }}
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="mt-2">
+                    {{ form_label(form.image, 'Avatar', {
+                        'label_attr': {'class': 'form-label'}
+                    }) }}
+                    {{ form_row(form.image) }}
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-square btn-square-bg-color btn-primary">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+    </div>
+</div>
+</div>
