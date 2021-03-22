@@ -38,7 +38,7 @@ class UserController extends AbstractController
                 $newFileName = $safeFileName.'-'.uniqid().'.'.$imageFile->guessExtension();
 
                 try {
-                    if (file_exists($_dir_imgToEdit.'/'.$imgToEdit)) {
+                    if (file_exists($_dir_imgToEdit.'/'.$imgToEdit) && $imgToEdit != 'defaultAvatar/defaultAvatar.png') {
                         unlink($_dir_imgToEdit.'/'.$imgToEdit);
                     }
                     $imageFile->move(
@@ -46,7 +46,7 @@ class UserController extends AbstractController
                         $newFileName
                     );
                 } catch (FileException $e) {
-                    //throw $th;
+                    return new Response ($e->getMassage());
                 }
                 $user
                     ->setEmail($user->getEmail())
@@ -63,9 +63,6 @@ class UserController extends AbstractController
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
-            'img' => dump($imgToEdit),
-            'dir' => dump($_dir_imgToEdit),
-            'bool' => dump(file_exists($_dir_imgToEdit.'/'.$imgToEdit)),
         ]);
     }
 

@@ -4,10 +4,10 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-        <meta name="author" content="AdminKit">
-        <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="description" content="Responsive Blog &amp; Dashboard Template based on Bootstrap 5">
+        <meta name="author" content="Samir">
+        <meta name="keywords" content="blog, responsive, bootstrap 5, admin, css, sass, html">
+        <title>{% block title %}The Blog{% endblock %}</title>
         {% block stylesheets %}
             <link href="{{ asset('css/app.css') }}" rel="stylesheet">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
@@ -103,7 +103,7 @@
     </head>
     <body>
         <div class="wrapper">
-            {# left navbar #}
+        {# left navbar #}
         {% if app.user %}
             <nav id="sidebar" class="sidebar">
                 <div class="sidebar-content js-simplebar" data-simplebar="init">
@@ -131,13 +131,12 @@
                                                         <i class="fas fa-users"></i><span class="align-middle menu-hover">Users</span>
                                                     </a>
                                                 </li>
+                                                <li class="sidebar-item">
+                                                    <a class="sidebar-link" href="{{ path('admin_articles_detail') }}">
+                                                        <i class="fas fa-newspaper"></i><span class="align-middle menu-hover">Activity</span>
+                                                    </a>
+                                                </li>
                                             {% endif %}
-                                            <li class="sidebar-item">
-                                                <a class="sidebar-link" href="{{ path('admin_articles_detail') }}">
-                                                    <i class="fas fa-newspaper"></i><span class="align-middle menu-hover">Activity</span>
-                                                </a>
-                                            </li>
-
                                             <li class="sidebar-item">
                                                 <a class="sidebar-link" href="{{ path('user_edit', {'id': app.user.id}) }}">
                                                     <i class="far fa-user-circle"></i><span class="align-middle menu-hover">Profile</span>
@@ -160,35 +159,34 @@
             </nav>
         {% else %}
         {% endif %}
-            {# top navbar #}
-            <div class="main">
-            
+        {# top navbar #}
+        <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
-				<a class="sidebar-toggle d-flex">
-					<i class="hamburger align-self-center"></i>
-				</a>
-				<div class="navbar-collapse collapse navbar-position">
+                <a class="sidebar-toggle d-flex">
+                    <i class="hamburger align-self-center"></i>
+                </a>
+                <div class="navbar-collapse collapse navbar-position">
                     {% if app.user %}
                         <div>
                             <img src="{{ asset('img/avatars/' ~app.user.avatar) }}" class="avatar img-fluid rounded mr-1" alt="{{app.user.username}}"> <span class="text-dark">{{app.user.username}}</span>
                         </div>
                     {% endif %}
-					<ul class="navbar-nav navbar-align">
+                    <ul class="navbar-nav navbar-align">
                     {% if app.user %}
                         <li class="nav-item">
                             <a class="btn btn-info btn-position" href="{{ path('app_logout') }}">Log-out</a>
-						</li>
+                        </li>
                     {% else %}
                         <li class="nav-item">
                             <a class="btn btn-info btn-position" href="{{ path('app_register') }}">Register</a>
-						</li>
+                        </li>
                         <li class="nav-item">
                             <a class="btn btn-info btn-position" href="{{ path('app_login') }}">Sign-in</a>
-						</li>
+                        </li>
                     {% endif %}
-					</ul>
-				</div>
-			</nav>
+                    </ul>
+                </div>
+            </nav>
         {% block javascripts %}
             <script src="{{ asset('js/app.js') }}"></script>
         {% endblock %}

@@ -3,13 +3,6 @@
 {% block title %}Article{% endblock %}
 
 {% block body %}
-
-    {# Comments number : {{ article.user.comments|length }}
-    <br>
-    {% for comment in article.user.comments %}
-        {{ comment.text }}
-        <br>
-    {% endfor %} #}
     <div class="back-btn-position">
         <a href="{{ path('article_index') }}" class="back-btn btn btn-pill btn-danger">Back to articles</a>
     </div>
@@ -19,7 +12,16 @@
                 <img class="card-img-top" src="{{ asset('img/photos/' ~ article.image) }}" alt="Unsplash">
             {% else %}
             {% endif %}
-                <div class="card-header">
+                <div class="card-header">       
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="float-right">
+                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown"></a>
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown"></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{{ path('admin_article_edit', {'id': article.id}) }}">Edit</a>
+                            </div>
+                        </div>
+                    {% endif %}
                     <div class="card-title mb-0 title-color">{{ article.title }}</div><span class="title-info"></span>
                 </div>
                 <div class="card-body h-100">
@@ -45,7 +47,6 @@
                     {{ form_end(form) }}
                 {% else %}
                 {% endif %}
-
                     <hr>
                     <div class="">
                         <i class="fas fa-comment icon-color"></i><span class="align-middle comment-font"> This article has {{ article.comments|length }} Comments</span>
